@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+WORK_MAIL="theo.massard@1000mercis.com"
+SCHOOL_MAIL="massar_t@etna-alternance.net"
+
+curr="$(git config --global user.email)"
+if [ "$curr" = "$WORK_MAIL" ];
+then
+	git config --global user.email $SCHOOL_MAIL
+else
+	git config --global user.email $WORK_MAIL
+fi
+
+echo "Changed git email:"
+git config --global user.email
