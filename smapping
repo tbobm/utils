@@ -1,1 +1,13 @@
-/usr/local/bin/smapping
+#!/usr/bin/env bash
+is_us="$(setxkbmap -print | grep qwerty)"
+res=$?
+
+if [ $res -eq 0 ]
+then
+	title="New keyboard layout: Azerty"
+	setxkbmap -layout fr
+else
+	title="New keyboard layout: Qwerty"
+	setxkbmap -layout us
+fi
+notify-send "$title"
