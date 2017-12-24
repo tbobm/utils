@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+# author: tbobm <massar_t@etna-alternance.net>
+# Get battery percentage
+
+POWER_DIR = "/sys/class/power_supply"
+BAT_DIR = POWER_DIR + "/BAT0"
+CURRENT_BATTERY = BAT_DIR + "/charge_now"
+MAX_BATTERY = BAT_DIR + "/charge_full"
+
+
+def compute_bat(current_bat, max_bat):
+    """"Return the battery value as a percentage"""
+    return current_bat * 100 / max_bat
+
+
+def get_bat_vals():
+    """Returns the content of the CURRENT and MAX BATTERY files"""
+    with open(CURRENT_BATTERY, 'r') as fobj:
+        curr = fobj.read()
+    with open(MAX_BATTERY, 'r') as fobj:
+        full = fobj.read()
+    return (int(curr), int(full))
+
+
+def main():
+    curr, full = get_bat_vals()
+    bat_percent = compute_bat(curr, full)
+    print(int(bat_percent))
+
+
+if __name__ == '__main__':
+    main()
